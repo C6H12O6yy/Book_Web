@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <style>
+        .readonly {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+		th:fragment="header">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/books}">Home</a>
+			<a class="navbar-brand" th:href="@{/}">Logout</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
+	<br/><br/><br/><br/>
+    <div class="container">
+        <h1>Book Details</h1>
+
+        <form th:object="${book}" th:action="@{save/{id}(id=${book.bookcode})}" th:method="${bookcode} < 0 ? POST : PUT">
+            <div class="mb-3">
+                <label class="form-label">Title:</label>
+                <input type="text" class="form-control" name="title" th:value="${book.title}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Author:</label>
+                <input type="text" class="form-control" name="author"  th:value="${book.author}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description:</label>
+                <input type="text" class="form-control" name="description" th:value="${book.description}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Publication:</label>
+                <input type="text" class="form-control" name="publication"  th:value="${book.publication}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Numberpage:</label>
+                <input type="text" class="form-control" name="numberpage"  th:value="${book.numberpage}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Category:</label>
+                <select class="form-select" name="category">
+                    <option value="fiction" th:selected="${book.category == 'fiction'}">Fiction</option>
+                    <option value="nonfiction" th:selected="${book.category == 'nonfiction'}">Nonfiction</option>
+                    <option value="mystery" th:selected="${book.category == 'mystery'}">Mystery</option>
+                    <option value="sci-fi" th:selected="${book.category == 'sci-fi'}">Science Fiction</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Image:</label>
+                <input type="text" class="form-control" name="picturebook" th:value="${book.picturebook}" />
+            </div>
+
+            <div>
+                <img th:if="${book.picturebook}" th:src="@{${book.picturebook}}" alt="Preview" style="max-width: 200px;">
+            </div><br>
+
+            <div>
+                <button type="submit" class="btn btn-primary" th:text="${bookcode} < 0 ? 'Add' : 'Edit'">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
